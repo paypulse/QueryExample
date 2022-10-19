@@ -410,7 +410,6 @@ from evu_std;
 select * FROM EVU_STEP es;
 
 --- EVU_STEP_NM : 평가 단계명 
-
 select * 
 from evu_std s inner join evu_step b on (s.EVU_STD_ID = b.EVU_STD_ID)
 where s.EVU_STD_ID ='202201';
@@ -418,13 +417,6 @@ where s.EVU_STD_ID ='202201';
 inner join evu_stat st on (b.EVU_STEP_CD  = st.EVU_STEP_CD )
 where s.EVU_STD_ID ='202201';
 
-
---- 평가 상태 
-select * 
-from evu_stat;
-
-select * 
-from EVU_STD es;
 
 
 
