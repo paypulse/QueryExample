@@ -414,8 +414,10 @@ select *
 from evu_std s inner join evu_step b on (s.EVU_STD_ID = b.EVU_STD_ID)
 where s.EVU_STD_ID ='202201';
 
+
 inner join evu_stat st on (b.EVU_STEP_CD  = st.EVU_STEP_CD )
 where s.EVU_STD_ID ='202201';
+
 
 
 
