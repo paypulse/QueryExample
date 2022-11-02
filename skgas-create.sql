@@ -676,5 +676,343 @@ CREATE TABLE wondermom89_mj89ya.dbo.EVU_STEP (
 	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
 	 ON [PRIMARY ] ;
 
+	
+CREATE TABLE wondermom89_mj89ya.dbo.EVU_TASK (
+	EVU_TASK_SEQ int NOT NULL,
+	EVU_STD_ID varchar(8) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	EVU_EMP_NO int NOT NULL,
+	EVU_TYPE char(1) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	WT_SCORE int NULL,
+	TASK_NM varchar(4000) COLLATE Korean_Wansung_CI_AI NULL,
+	EXEC_PLAN text COLLATE Korean_Wansung_CI_AI NULL,
+	EXEC_PLAN_LONG text COLLATE Korean_Wansung_CI_AI NULL,
+	EXEC_PLAN_COMNT text COLLATE Korean_Wansung_CI_AI NULL,
+	TASK_MNG_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_ACHV_RATE_1Q int NULL,
+	SELF_ACHV_TEXT_1Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_ACHV_RATE_1Q int NULL,
+	MNG1_ACHV_TEXT_1Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_ACHV_RATE_1Q int NULL,
+	MNG2_ACHV_TEXT_1Q text COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_ACHV_RATE_2Q int NULL,
+	SELF_ACHV_TEXT_2Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_ACHV_RATE_2Q int NULL,
+	MNG1_ACHV_TEXT_2Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_ACHV_RATE_2Q int NULL,
+	MNG2_ACHV_TEXT_2Q text COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_ACHV_RATE_3Q int NULL,
+	SELF_ACHV_TEXT_3Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_ACHV_RATE_3Q int NULL,
+	MNG1_ACHV_TEXT_3Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_ACHV_RATE_3Q int NULL,
+	MNG2_ACHV_TEXT_3Q text COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_ACHV_RATE_4Q int NULL,
+	SELF_ACHV_TEXT_4Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_ACHV_RATE_4Q int NULL,
+	MNG1_ACHV_TEXT_4Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_ACHV_RATE_4Q int NULL,
+	MNG2_ACHV_TEXT_4Q text COLLATE Korean_Wansung_CI_AI NULL,
+	INS_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_YMDHMS datetime NULL,
+	MOD_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS datetime NULL,
+	TASK_CFM_YN char(1) COLLATE Korean_Wansung_CI_AI DEFAULT 'N' NOT NULL
+);	
+
+
+CREATE TABLE wondermom89_mj89ya.dbo.EVU_TOT (
+	EVU_TOT_SEQ int NOT NULL,
+	EVU_EMP_NO int NOT NULL,
+	EVU_TYPE char(1) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	EVU_RANK int DEFAULT 0 NOT NULL,
+	ITEM_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_COMNT text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_COMNT text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_COMNT text COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_GRD char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_COMNT text COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_GRD_1Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_COMNT_1Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_GRD_1Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_COMNT_1Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_GRD_1Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_COMNT_1Q text COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_GRD_1Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_COMNT_1Q text COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_CFM_GRD_1Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_GRD_2Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_COMNT_2Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_GRD_2Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_COMNT_2Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_GRD_2Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_COMNT_2Q text COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_GRD_2Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_COMNT_2Q text COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_CFM_GRD_2Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_GRD_3Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_COMNT_3Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_GRD_3Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_COMNT_3Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_GRD_3Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_COMNT_3Q text COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_GRD_3Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_COMNT_3Q text COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_CFM_GRD_3Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_GRD_4Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	SELF_COMNT_4Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_GRD_4Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	MNG1_COMNT_4Q text COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_GRD_4Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	MNG2_COMNT_4Q text COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_GRD_4Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_COMNT_4Q text COLLATE Korean_Wansung_CI_AI NULL,
+	TOT_CFM_GRD_4Q char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	INS_YMDHMS datetime NOT NULL,
+	MOD_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS datetime NULL,
+	EVU_RANK_1Q int NULL,
+	EVU_RANK_2Q int NULL,
+	EVU_RANK_3Q int NULL,
+	EVU_RANK_4Q int NULL,
+	CONSTRAINT PK_EVU_TOT PRIMARY KEY (EVU_TOT_SEQ)
+);
+CREATE NONCLUSTERED INDEX IX_EVU_TOT_EMPNO ON wondermom89_mj89ya.dbo.EVU_TOT (EVU_EMP_NO);
+CREATE NONCLUSTERED INDEX IX_EVU_TOT_EVUTYPE ON wondermom89_mj89ya.dbo.EVU_TOT (EVU_TYPE);
+
+
+CREATE TABLE wondermom89_mj89ya.dbo.FAQ_BOARD (
+	FAQ_NO int IDENTITY(1,1) NOT NULL,
+	FAQ_CATEGORY int NULL,
+	FAQ_SUBJECT varchar(255) COLLATE Korean_Wansung_CI_AI NULL,
+	FAQ_CONTENT text COLLATE Korean_Wansung_CI_AI NULL,
+	FAQ_SHOW_YN char(1) COLLATE Korean_Wansung_CI_AI DEFAULT 'Y' NOT NULL,
+	INS_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_YMDHMS datetime NULL,
+	MOD_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS datetime NULL,
+	FAQ_DEL_YN char(1) COLLATE Korean_Wansung_CI_AI DEFAULT 'N' NOT NULL
+);
+
+CREATE TABLE wondermom89_mj89ya.dbo.FAQ_CATEGORY (
+	CATEGORY_NO int IDENTITY(1,1) NOT NULL,
+	CATEGORY_RANK int NULL,
+	CATEGORY_NAME varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_YMDHMS datetime NULL,
+	MOD_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS datetime NULL,
+	CATEGORY_DEL_YN char(1) COLLATE Korean_Wansung_CI_AI DEFAULT 'N' NOT NULL
+);
+
+
+CREATE TABLE wondermom89_mj89ya.dbo.NOTI_BOARD (
+	NOTI_NO int IDENTITY(1,1) NOT NULL,
+	NOTI_IMPORTANT int NULL,
+	NOTI_SUBJECT varchar(255) COLLATE Korean_Wansung_CI_AI NULL,
+	NOTI_CONTENT text COLLATE Korean_Wansung_CI_AI NULL,
+	NOTI_HIT int NULL,
+	INS_USER_ID varchar(10) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_YMDHMS date NULL,
+	MOD_USER_ID varchar(10) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS date NULL
+);
+
+CREATE TABLE wondermom89_mj89ya.dbo.QNA_BOARD (
+	QNA_NO int IDENTITY(1,1) NOT NULL,
+	QNA_QTYPE int NULL,
+	QNA_ATYPE int NULL,
+	QNA_SUBJECT varchar(255) COLLATE Korean_Wansung_CI_AI NULL,
+	QNA_CONTENT text COLLATE Korean_Wansung_CI_AI NULL,
+	QNA_FILENAME varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	QNA_ANSWER text COLLATE Korean_Wansung_CI_AI NULL,
+	QNA_INS_ADATE date NULL,
+	QNA_MOD_ADATE date NULL,
+	QNA_INS_AUSER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	QNA_MOD_AUSER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_YMDHMS datetime NULL,
+	MOD_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS datetime NULL,
+	QNA_REAL_FILENAME varchar(100) COLLATE Korean_Wansung_CI_AI NULL
+);
+
+
+CREATE TABLE wondermom89_mj89ya.dbo.SESSION_EMP (
+	SESSION_EMP_SEQ int IDENTITY(1,1) NOT NULL,
+	EVU_STD_ID varchar(11) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	EVU_EMP_ID varchar(20) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	SESSION_NM varchar(50) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	POST_YEAR varchar(200) COLLATE Korean_Wansung_CI_AI NULL,
+	CAREER varchar(1000) COLLATE Korean_Wansung_CI_AI NULL,
+	SUMMARY varchar(1000) COLLATE Korean_Wansung_CI_AI NULL,
+	STEP_CD varchar(2) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	INS_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	INS_YMDHMS datetime NOT NULL,
+	MOD_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS datetime NULL
+);
+ CREATE NONCLUSTERED INDEX IX_SESSION_EMP_EMPID ON dbo.SESSION_EMP (  EVU_EMP_ID ASC  )  
+	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
+	 ON [PRIMARY ] ;
+ CREATE NONCLUSTERED INDEX IX_SESSION_EMP_SESSIONNM ON dbo.SESSION_EMP (  SESSION_NM ASC  )  
+	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
+	 ON [PRIMARY ] ;
+ CREATE NONCLUSTERED INDEX IX_SESSION_EMP_STDID ON dbo.SESSION_EMP (  EVU_STD_ID ASC  )  
+	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
+	 ON [PRIMARY ] ;
+ CREATE NONCLUSTERED INDEX IX_SESSION_EMP_STEPCD ON dbo.SESSION_EMP (  STEP_CD ASC  )  
+	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
+	 ON [PRIMARY ] ;
+	
+CREATE TABLE wondermom89_mj89ya.dbo.[USER] (
+	EMP_ID varchar(20) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	EMP_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	ENTER_TYPE varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	ENTER_YMD varchar(8) COLLATE Korean_Wansung_CI_AI NULL,
+	EMP_TYPE varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	OFFICE_TEL_NO varchar(50) COLLATE Korean_Wansung_CI_AI NULL,
+	TEL_NO varchar(50) COLLATE Korean_Wansung_CI_AI NULL,
+	EGC_TEL_NO varchar(50) COLLATE Korean_Wansung_CI_AI NULL,
+	MOBILE_NO varchar(50) COLLATE Korean_Wansung_CI_AI NULL,
+	PHOTO_YN char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	PHOTO_PATH varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	STA_YMD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	END_YMD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	SEQ_NO int NULL,
+	STAT_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	BIZPL_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_ID2 varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_NM2 varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	EMP_GRADE_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	EMP_GRADE_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	DUTY_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	DUTY_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	JG_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	JG_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	JOB_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	JOB_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	JOB_ID2 varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	JOB_NM2 varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	POST_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	POST_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	BAND_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	GRADE_STA_YMD date NULL,
+	POST_AGE int DEFAULT 0 NULL,
+	GRP_YMD varchar(8) COLLATE Korean_Wansung_CI_AI NULL,
+	BIRTH_YMD varchar(8) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_YMDHMS date NULL,
+	MOD_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS date NULL,
+	UPT_YMDHMS datetime NULL,
+	CONSTRAINT PK_USER PRIMARY KEY (EMP_ID)
+);
+
+CREATE TABLE wondermom89_mj89ya.dbo.USER_BATCH (
+	EMP_ID varchar(20) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	EMP_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	ENTER_TYPE varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	ENTER_YMD varchar(8) COLLATE Korean_Wansung_CI_AI NULL,
+	EMP_TYPE varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	OFFICE_TEL_NO varchar(50) COLLATE Korean_Wansung_CI_AI NULL,
+	TEL_NO varchar(50) COLLATE Korean_Wansung_CI_AI NULL,
+	EGC_TEL_NO varchar(50) COLLATE Korean_Wansung_CI_AI NULL,
+	MOBILE_NO varchar(50) COLLATE Korean_Wansung_CI_AI NULL,
+	PHOTO_YN char(1) COLLATE Korean_Wansung_CI_AI NULL,
+	PHOTO_PATH varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	STA_YMD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	END_YMD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	SEQ_NO int NULL,
+	STAT_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	BIZPL_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_ID2 varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_NM2 varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	EMP_GRADE_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	EMP_GRADE_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	DUTY_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	DUTY_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	JG_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	JG_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	JOB_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	JOB_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	JOB_ID2 varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	JOB_NM2 varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	POST_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	POST_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	BAND_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	GRP_YMD varchar(8) COLLATE Korean_Wansung_CI_AI NULL,
+	GRADE_STA_YMD date NULL,
+	POST_AGE int NULL,
+	BIRTH_YMD varchar(8) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_YMDHMS date NULL,
+	MOD_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS date NULL,
+	UPT_YMDHMS datetime NULL,
+	CONSTRAINT PK_USER_BATCH PRIMARY KEY (EMP_ID)
+);
+
+
+CREATE TABLE wondermom89_mj89ya.dbo.USER_CAREER (
+	EMP_ID varchar(20) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	STA_YMD varchar(8) COLLATE Korean_Wansung_CI_AI NULL,
+	END_YMD varchar(8) COLLATE Korean_Wansung_CI_AI NULL,
+	APPNT_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	APPNT_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	ORG_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	POST_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	POST_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_YMDHMS datetime NULL,
+	MOD_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS datetime NULL,
+	UPT_YMDHMS datetime NULL
+);
+
+
+CREATE TABLE wondermom89_mj89ya.dbo.USER_SCHL (
+	EMP_ID varchar(20) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	SEQ_NO int NOT NULL,
+	STA_YM varchar(6) COLLATE Korean_Wansung_CI_AI NULL,
+	END_YM varchar(6) COLLATE Korean_Wansung_CI_AI NULL,
+	DEGREE_NO varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	SCHO_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	GRD_SCHL_TYPE varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	SCHL_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	SCHL_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	MAJOR_GRP_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MAJOR_GRP_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	MAJOR_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MAJOR_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	MAJOR2_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MAJOR2_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	MINOR_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MINOR_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	DEGREE_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	GRADU_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	PNB_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	DAY_NIGHT_CD varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	TRANS_YN char(1) COLLATE Korean_Wansung_CI_AI DEFAULT 'N' NOT NULL,
+	PLACE_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	LAST_YN char(1) COLLATE Korean_Wansung_CI_AI DEFAULT 'N' NOT NULL,
+	AFT_YN char(1) COLLATE Korean_Wansung_CI_AI DEFAULT 'N' NOT NULL,
+	THESIS_NM varchar(100) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	INS_YMDHMS datetime NULL,
+	MOD_USER_ID varchar(20) COLLATE Korean_Wansung_CI_AI NULL,
+	MOD_YMDHMS datetime NULL,
+	UPT_YMDHMS datetime NULL,
+	COM_YN varchar(1) COLLATE Korean_Wansung_CI_AI NOT NULL,
+	CONSTRAINT PK_USER_SCHL PRIMARY KEY (EMP_ID,SEQ_NO)
+);
+	
+
 
 
