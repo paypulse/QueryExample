@@ -1015,7 +1015,130 @@ CREATE TABLE wondermom89_mj89ya.dbo.USER_SCHL (
 
 
 
-CREATE VIEW [dbo].[COMM_ORG_VIEW] AS
+--With Tree_Org(OBJ_ID, OBJ_NM, depth, SEQ_NO, PAR_OBJ_ID, PAR_OBJ_NM, RCV_OBJ_ID, PAR_OBJ_ID1, PAR_OBJ_ID2, PAR_OBJ_ID3, PAR_OBJ_ID4, PAR_OBJ_NM1, PAR_OBJ_NM2, PAR_OBJ_NM3, PAR_OBJ_NM4)
+With  Tree_Org(OBJ_ID, OBJ_NM, depth, SEQ_NO, PAR_OBJ_ID,PAR_OBJ_NM)
+As
+(
+ Select  
+	OBJ_ID, 
+	OBJ_NM,
+	1 As depth, 
+	CAST(REPLACE(STR(ISNULL(SEQ_NO,'0'), 4),' ','0') as varchar(20)) SEQ_NO, 
+	PAR_OBJ_ID,
+	CAST('' as varchar(100)) AS PAR_OBJ_NM
+--	CAST(OBJ_ID as varchar(200)) AS RCV_OBJ_ID,
+--	CAST('' as varchar(20)) AS PAR_OBJ_ID1, 
+--	CAST('' as varchar(20)) AS PAR_OBJ_ID2, 
+--	CAST('' as varchar(20)) AS PAR_OBJ_ID3, 
+--	CAST('' as varchar(20)) AS PAR_OBJ_ID4,
+--	CAST('' as varchar(100)) AS PAR_OBJ_NM1, 
+--	CAST('' as varchar(100)) AS PAR_OBJ_NM2, 
+--	CAST('' as varchar(100)) AS PAR_OBJ_NM3, 
+--	CAST('' as varchar(100)) AS PAR_OBJ_NM4
+ From   COMM_ORG
+ Where  PAR_OBJ_ID = '0000000000' 
+ Union All
+ Select  
+	A.OBJ_ID, 
+	A.OBJ_NM, 
+	depth + 1 As depth,  
+	CAST(B.SEQ_NO + CAST(REPLACE(STR(ISNULL(A.SEQ_NO,'0'), 4),' ','0') as varchar(4))  as  varchar(20)) SEQ_NO, 
+	A.PAR_OBJ_ID, 
+	A.OBJ_NM AS PAR_OBJ_NM  
+--	CAST(RCV_OBJ_ID+'|'+A.OBJ_ID as varchar(200))  AS RCV_OBJ_ID,
+--	(CASE WHEN depth=1 THEN B.OBJ_ID ELSE  PAR_OBJ_ID1 END) AS PAR_OBJ_ID1,
+--	(CASE WHEN depth=2 THEN B.OBJ_ID ELSE  PAR_OBJ_ID2 END) AS PAR_OBJ_ID2,
+--	(CASE WHEN depth=3 THEN B.OBJ_ID ELSE  PAR_OBJ_ID3 END) AS PAR_OBJ_ID3,
+--	(CASE WHEN depth=4 THEN B.OBJ_ID ELSE  PAR_OBJ_ID4 END) AS PAR_OBJ_ID4,
+--	(CASE WHEN depth=1 THEN B.OBJ_NM ELSE  PAR_OBJ_NM1 END) AS PAR_OBJ_NM1,
+--	(CASE WHEN depth=2 THEN B.OBJ_NM ELSE  PAR_OBJ_NM2 END) AS PAR_OBJ_NM2,
+--	(CASE WHEN depth=3 THEN B.OBJ_NM ELSE  PAR_OBJ_NM3 END) AS PAR_OBJ_NM3,
+--	(CASE WHEN depth=4 THEN B.OBJ_NM ELSE  PAR_OBJ_NM4 END) AS PAR_OBJ_NM4
+ From   COMM_ORG A
+ Inner Join Tree_Org  B On A.PAR_OBJ_ID = B.OBJ_ID
+)
+Select 
+	OBJ_ID, 
+	OBJ_NM, 
+	depth, 
+	SEQ_NO,
+	PAR_OBJ_ID, 
+	PAR_OBJ_NM 
+--	RCV_OBJ_ID, 
+--	PAR_OBJ_ID1, 
+--	PAR_OBJ_ID2, 
+--	PAR_OBJ_ID3, 
+--	PAR_OBJ_ID4,
+--	PAR_OBJ_NM1,
+--	PAR_OBJ_NM2,
+--	PAR_OBJ_NM3,
+--	PAR_OBJ_NM4
+From  Tree_Org;
+
+
+
+
+-------------- create view
+-- dbo.COMM_ORG_VIEW source
+--CREATE VIEW [dbo].[COMM_ORG_VIEW] AS
+With Tree_Org(OBJ_ID, OBJ_NM, depth, SEQ_NO, PAR_OBJ_ID, PAR_OBJ_NM, RCV_OBJ_ID, PAR_OBJ_ID1, PAR_OBJ_ID2, PAR_OBJ_ID3, PAR_OBJ_ID4, PAR_OBJ_NM1, PAR_OBJ_NM2, PAR_OBJ_NM3, PAR_OBJ_NM4)
+As
+(
+ Select  
+	OBJ_ID, 
+	OBJ_NM,
+	1 As depth, 
+	CAST(REPLACE(STR(ISNULL(SEQ_NO,'0'), 4),' ','0') as varchar(20)) SEQ_NO, 
+	PAR_OBJ_ID, 
+	CAST('' as varchar(100)) AS PAR_OBJ_NM,
+	CAST(OBJ_ID as varchar(200)) AS RCV_OBJ_ID,
+	CAST('-' as varchar(20)) AS PAR_OBJ_ID1, 
+	CAST('-' as varchar(20)) AS PAR_OBJ_ID2, 
+	CAST('-' as varchar(20)) AS PAR_OBJ_ID3, 
+	CAST('-' as varchar(20)) AS PAR_OBJ_ID4,
+	CAST('-' as varchar(100)) AS PAR_OBJ_NM1, 
+	CAST('-' as varchar(100)) AS PAR_OBJ_NM2, 
+	CAST('-' as varchar(100)) AS PAR_OBJ_NM3, 
+	CAST('-' as varchar(100)) AS PAR_OBJ_NM4
+ From   COMM_ORG
+ Where  PAR_OBJ_ID = '0000000000' 
+ Union All
+ Select  
+	A.OBJ_ID, 
+	A.OBJ_NM, 
+	depth + 1 As depth,  
+	CAST(B.SEQ_NO + CAST(REPLACE(STR(ISNULL(A.SEQ_NO,'0'), 4),' ','0') as varchar(4))  as  varchar(20)) SEQ_NO, 
+	A.PAR_OBJ_ID, 
+	B.PAR_OBJ_NM AS PAR_OBJ_NM,
+	CAST(RCV_OBJ_ID+'|'+A.OBJ_ID as varchar(200))  AS RCV_OBJ_ID,
+	(CASE WHEN depth=1 THEN B.OBJ_ID ELSE  PAR_OBJ_ID1 END) AS PAR_OBJ_ID1,
+	(CASE WHEN depth=2 THEN B.OBJ_ID ELSE  PAR_OBJ_ID2 END) AS PAR_OBJ_ID2,
+	(CASE WHEN depth=3 THEN B.OBJ_ID ELSE  PAR_OBJ_ID3 END) AS PAR_OBJ_ID3,
+	(CASE WHEN depth=4 THEN B.OBJ_ID ELSE  PAR_OBJ_ID4 END) AS PAR_OBJ_ID4,
+	(CASE WHEN depth=1 THEN B.OBJ_NM ELSE  PAR_OBJ_NM1 END) AS PAR_OBJ_NM1,
+	(CASE WHEN depth=2 THEN B.OBJ_NM ELSE  PAR_OBJ_NM2 END) AS PAR_OBJ_NM2,
+	(CASE WHEN depth=3 THEN B.OBJ_NM ELSE  PAR_OBJ_NM3 END) AS PAR_OBJ_NM3,
+	(CASE WHEN depth=4 THEN B.OBJ_NM ELSE  PAR_OBJ_NM4 END) AS PAR_OBJ_NM4
+ From   COMM_ORG A
+ Inner Join Tree_Org  B On A.PAR_OBJ_ID = B.OBJ_ID
+)
+Select 
+	OBJ_ID, OBJ_NM, depth, SEQ_NO, 
+	PAR_OBJ_ID, PAR_OBJ_NM, 
+	RCV_OBJ_ID, 
+	PAR_OBJ_ID1, 
+	PAR_OBJ_ID2, 
+	PAR_OBJ_ID3, 
+	PAR_OBJ_ID4,
+	PAR_OBJ_NM1,
+	PAR_OBJ_NM2,
+	PAR_OBJ_NM3,
+	PAR_OBJ_NM4
+From  Tree_Org;
+
+
+
+----- create view with절
 With Tree_Org(OBJ_ID, OBJ_NM, depth, SEQ_NO, PAR_OBJ_ID, PAR_OBJ_NM, RCV_OBJ_ID, PAR_OBJ_ID1, PAR_OBJ_ID2, PAR_OBJ_ID3, PAR_OBJ_ID4, PAR_OBJ_NM1, PAR_OBJ_NM2, PAR_OBJ_NM3, PAR_OBJ_NM4)
 As
 (
@@ -1058,10 +1181,8 @@ As
  Inner Join Tree_Org  B On A.PAR_OBJ_ID = B.OBJ_ID
 )
 Select 
-	OBJ_ID, OBJ_NM, depth, 
-	SEQ_NO, 
-	PAR_OBJ_ID, 
-	PAR_OBJ_NM, 
+	OBJ_ID, OBJ_NM, depth, SEQ_NO, 
+	PAR_OBJ_ID, PAR_OBJ_NM, 
 	RCV_OBJ_ID, 
 	PAR_OBJ_ID1, 
 	PAR_OBJ_ID2, 
@@ -1073,18 +1194,41 @@ Select
 	PAR_OBJ_NM4
 From  Tree_Org;
 
+--------
+ Select  
+	OBJ_ID, 
+	OBJ_NM,
+	1 As depth, 
+	CAST(REPLACE(STR(ISNULL(SEQ_NO,'0'), 4),' ','0') as varchar(20)) SEQ_NO, 
+	PAR_OBJ_ID, 
+	CAST(OBJ_NM as varchar(100)) AS PAR_OBJ_NM,
+	CAST(OBJ_ID as varchar(200)) AS RCV_OBJ_ID,
+	CAST(' ' as varchar(20)) AS PAR_OBJ_ID1, 
+	CAST(PAR_OBJ_ID as varchar(20)) AS PAR_OBJ_ID2, 
+	CAST(PAR_OBJ_ID as varchar(20)) AS PAR_OBJ_ID3, 
+	CAST(PAR_OBJ_ID as varchar(20)) AS PAR_OBJ_ID4,
+	CAST('' as varchar(100)) AS PAR_OBJ_NM1, 
+	CAST('' as varchar(100)) AS PAR_OBJ_NM2, 
+	CAST('' as varchar(100)) AS PAR_OBJ_NM3, 
+	CAST('' as varchar(100)) AS PAR_OBJ_NM4
+ From   COMM_ORG
+ Where  PAR_OBJ_ID = '0000000000'; 
 
+select * 
+from COMM_ORG co
+where co.PAR_OBJ_ID= '0000000000';
 
-
+with Test (OBJ_ID,OBJ_NM,depth,SEQ_NO,PAR_OBJ_ID,PAR_OBJ_NM,RCV_OBJ_ID,PAR_OBJ_ID1,PAR_OBJ_ID2,PAR_OBJ_ID3,PAR_OBJ_ID4,PAR_OBJ_NM1,PAR_OBJ_NM2,PAR_OBJ_NM3,PAR_OBJ_NM4)
+AS ( 
 Select  
 	OBJ_ID, 
 	OBJ_NM,
-	1 As 'depth', 
+	1 As depth, 
 	CAST(REPLACE(STR(ISNULL(SEQ_NO,'0'), 4),' ','0') as varchar(20)) SEQ_NO, 
 	PAR_OBJ_ID, 
-	CAST('' as varchar(100)) AS PAR_OBJ_NM,
+	CAST(OBJ_NM as varchar(100)) AS PAR_OBJ_NM,
 	CAST(OBJ_ID as varchar(200)) AS RCV_OBJ_ID,
-	CAST('' as varchar(20)) AS PAR_OBJ_ID1, 
+	CAST(' ' as varchar(20)) AS PAR_OBJ_ID1, 
 	CAST('' as varchar(20)) AS PAR_OBJ_ID2, 
 	CAST('' as varchar(20)) AS PAR_OBJ_ID3, 
 	CAST('' as varchar(20)) AS PAR_OBJ_ID4,
@@ -1093,22 +1237,26 @@ Select
 	CAST('' as varchar(100)) AS PAR_OBJ_NM3, 
 	CAST('' as varchar(100)) AS PAR_OBJ_NM4
  From   COMM_ORG
- Where  PAR_OBJ_ID = '0000000000' 
- Union All
- Select  
-	A.OBJ_ID, 
-	A.OBJ_NM, 
-	(depth + 1) As 'depth',  
-	CAST(B.SEQ_NO + CAST(REPLACE(STR(ISNULL(A.SEQ_NO,'0'), 4),' ','0') as varchar(4))  as  varchar(20)) SEQ_NO, 
-	A.PAR_OBJ_ID, 
-	B.OBJ_NM AS PAR_OBJ_NM,
-	CAST(RCV_OBJ_ID+'|'+A.OBJ_ID as varchar(200))  AS RCV_OBJ_ID,
-	(CASE WHEN depth=1 THEN B.OBJ_ID ELSE  PAR_OBJ_ID1 END) AS PAR_OBJ_ID1,
-	(CASE WHEN depth=2 THEN B.OBJ_ID ELSE  PAR_OBJ_ID2 END) AS PAR_OBJ_ID2,
-	(CASE WHEN depth=3 THEN B.OBJ_ID ELSE  PAR_OBJ_ID3 END) AS PAR_OBJ_ID3,
-	(CASE WHEN depth=4 THEN B.OBJ_ID ELSE  PAR_OBJ_ID4 END) AS PAR_OBJ_ID4,
-	(CASE WHEN depth=1 THEN B.OBJ_NM ELSE  PAR_OBJ_NM1 END) AS PAR_OBJ_NM1,
-	(CASE WHEN depth=2 THEN B.OBJ_NM ELSE  PAR_OBJ_NM2 END) AS PAR_OBJ_NM2,
-	(CASE WHEN depth=3 THEN B.OBJ_NM ELSE  PAR_OBJ_NM3 END) AS PAR_OBJ_NM3,
-	(CASE WHEN depth=4 THEN B.OBJ_NM ELSE  PAR_OBJ_NM4 END) AS PAR_OBJ_NM4
- From   COMM_ORG A;
+ Where  PAR_OBJ_ID = '0000000000'
+ union 
+  Select  
+	OBJ_ID, 
+	OBJ_NM,
+	1 As depth, 
+	CAST(REPLACE(STR(ISNULL(SEQ_NO,'0'), 4),' ','0') as varchar(20)) SEQ_NO, 
+	PAR_OBJ_ID, 
+	CAST(OBJ_NM as varchar(100)) AS PAR_OBJ_NM,
+	CAST(OBJ_ID as varchar(200)) AS RCV_OBJ_ID,
+	CAST(' ' as varchar(20)) AS PAR_OBJ_ID1, 
+	CAST(PAR_OBJ_ID as varchar(20)) AS PAR_OBJ_ID2, 
+	CAST(PAR_OBJ_ID as varchar(20)) AS PAR_OBJ_ID3, 
+	CAST(PAR_OBJ_ID as varchar(20)) AS PAR_OBJ_ID4,
+	CAST('' as varchar(100)) AS PAR_OBJ_NM1, 
+	CAST('' as varchar(100)) AS PAR_OBJ_NM2, 
+	CAST('' as varchar(100)) AS PAR_OBJ_NM3, 
+	CAST('' as varchar(100)) AS PAR_OBJ_NM4
+ From   COMM_ORG
+ Where  PAR_OBJ_ID = '0000000000')
+select * from Test;
+
+
