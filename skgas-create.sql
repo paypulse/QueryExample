@@ -1226,7 +1226,7 @@ Select
 	1 As depth, 
 	CAST(REPLACE(STR(ISNULL(SEQ_NO,'0'), 4),' ','0') as varchar(20)) SEQ_NO, 
 	PAR_OBJ_ID, 
-	CAST(OBJ_NM as varchar(100)) AS PAR_OBJ_NM,
+	CAST('' as varchar(100)) AS PAR_OBJ_NM,
 	CAST(OBJ_ID as varchar(200)) AS RCV_OBJ_ID,
 	CAST(' ' as varchar(20)) AS PAR_OBJ_ID1, 
 	CAST('' as varchar(20)) AS PAR_OBJ_ID2, 
@@ -1238,25 +1238,127 @@ Select
 	CAST('' as varchar(100)) AS PAR_OBJ_NM4
  From   COMM_ORG
  Where  PAR_OBJ_ID = '0000000000'
- union 
-  Select  
+ union ALL 
+Select  
+	A.OBJ_ID, 
+	A.OBJ_NM, 
+	depth + 1 As depth,  
+	CAST(B.SEQ_NO + CAST(REPLACE(STR(ISNULL(A.SEQ_NO,'0'), 4),' ','0') as varchar(4))  as  varchar(20)) SEQ_NO, 
+	A.PAR_OBJ_ID, 
+	B.OBJ_NM AS PAR_OBJ_NM,
+	CAST(RCV_OBJ_ID+'|'+A.OBJ_ID as varchar(200))  AS RCV_OBJ_ID,
+	(CASE WHEN depth=1 THEN B.OBJ_ID ELSE  PAR_OBJ_ID1 END) AS PAR_OBJ_ID1,
+	(CASE WHEN depth=2 THEN B.OBJ_ID ELSE  PAR_OBJ_ID2 END) AS PAR_OBJ_ID2,
+	(CASE WHEN depth=3 THEN B.OBJ_ID ELSE  PAR_OBJ_ID3 END) AS PAR_OBJ_ID3,
+	(CASE WHEN depth=4 THEN B.OBJ_ID ELSE  PAR_OBJ_ID4 END) AS PAR_OBJ_ID4,
+	(CASE WHEN depth=1 THEN B.OBJ_NM ELSE  PAR_OBJ_NM1 END) AS PAR_OBJ_NM1,
+	(CASE WHEN depth=2 THEN B.OBJ_NM ELSE  PAR_OBJ_NM2 END) AS PAR_OBJ_NM2,
+	(CASE WHEN depth=3 THEN B.OBJ_NM ELSE  PAR_OBJ_NM3 END) AS PAR_OBJ_NM3,
+	(CASE WHEN depth=4 THEN B.OBJ_NM ELSE  PAR_OBJ_NM4 END) AS PAR_OBJ_NM4
+ From   COMM_ORG A
+ Inner Join Test  B On A.PAR_OBJ_ID = B.OBJ_ID
+ )
+select * from Test;
+
+
+
+
+------
+
+CREATE VIEW [dbo].[COMM_ORG_VIEW] AS
+With Tree_Org(OBJ_ID, OBJ_NM, depth, SEQ_NO, PAR_OBJ_ID, PAR_OBJ_NM, RCV_OBJ_ID, PAR_OBJ_ID1, PAR_OBJ_ID2, PAR_OBJ_ID3, PAR_OBJ_ID4, PAR_OBJ_NM1, PAR_OBJ_NM2, PAR_OBJ_NM3, PAR_OBJ_NM4)
+As
+(
+ Select  
 	OBJ_ID, 
 	OBJ_NM,
 	1 As depth, 
 	CAST(REPLACE(STR(ISNULL(SEQ_NO,'0'), 4),' ','0') as varchar(20)) SEQ_NO, 
 	PAR_OBJ_ID, 
-	CAST(OBJ_NM as varchar(100)) AS PAR_OBJ_NM,
+	CAST('' as varchar(100)) AS PAR_OBJ_NM,
 	CAST(OBJ_ID as varchar(200)) AS RCV_OBJ_ID,
-	CAST(' ' as varchar(20)) AS PAR_OBJ_ID1, 
-	CAST(PAR_OBJ_ID as varchar(20)) AS PAR_OBJ_ID2, 
-	CAST(PAR_OBJ_ID as varchar(20)) AS PAR_OBJ_ID3, 
-	CAST(PAR_OBJ_ID as varchar(20)) AS PAR_OBJ_ID4,
+	CAST('' as varchar(20)) AS PAR_OBJ_ID1, 
+	CAST('' as varchar(20)) AS PAR_OBJ_ID2, 
+	CAST('' as varchar(20)) AS PAR_OBJ_ID3, 
+	CAST('' as varchar(20)) AS PAR_OBJ_ID4,
 	CAST('' as varchar(100)) AS PAR_OBJ_NM1, 
 	CAST('' as varchar(100)) AS PAR_OBJ_NM2, 
 	CAST('' as varchar(100)) AS PAR_OBJ_NM3, 
 	CAST('' as varchar(100)) AS PAR_OBJ_NM4
  From   COMM_ORG
- Where  PAR_OBJ_ID = '0000000000')
-select * from Test;
+ Where  PAR_OBJ_ID = '0000000000' 
+ Union All
+ Select  
+	A.OBJ_ID, 
+	A.OBJ_NM, 
+	depth + 1 As depth,  
+	CAST(B.SEQ_NO + CAST(REPLACE(STR(ISNULL(A.SEQ_NO,'0'), 4),' ','0') as varchar(4))  as  varchar(20)) SEQ_NO, 
+	A.PAR_OBJ_ID, 
+	B.OBJ_NM AS PAR_OBJ_NM,
+	CAST(RCV_OBJ_ID+'|'+A.OBJ_ID as varchar(200))  AS RCV_OBJ_ID,
+	(CASE WHEN depth=1 THEN B.OBJ_ID ELSE  PAR_OBJ_ID1 END) AS PAR_OBJ_ID1,
+	(CASE WHEN depth=2 THEN B.OBJ_ID ELSE  PAR_OBJ_ID2 END) AS PAR_OBJ_ID2,
+	(CASE WHEN depth=3 THEN B.OBJ_ID ELSE  PAR_OBJ_ID3 END) AS PAR_OBJ_ID3,
+	(CASE WHEN depth=4 THEN B.OBJ_ID ELSE  PAR_OBJ_ID4 END) AS PAR_OBJ_ID4,
+	(CASE WHEN depth=1 THEN B.OBJ_NM ELSE  PAR_OBJ_NM1 END) AS PAR_OBJ_NM1,
+	(CASE WHEN depth=2 THEN B.OBJ_NM ELSE  PAR_OBJ_NM2 END) AS PAR_OBJ_NM2,
+	(CASE WHEN depth=3 THEN B.OBJ_NM ELSE  PAR_OBJ_NM3 END) AS PAR_OBJ_NM3,
+	(CASE WHEN depth=4 THEN B.OBJ_NM ELSE  PAR_OBJ_NM4 END) AS PAR_OBJ_NM4
+ From   COMM_ORG A
+ Inner Join Tree_Org  B On A.PAR_OBJ_ID = B.OBJ_ID
+)
+Select 
+	OBJ_ID, OBJ_NM, depth, SEQ_NO, 
+	PAR_OBJ_ID, PAR_OBJ_NM, 
+	RCV_OBJ_ID, 
+	PAR_OBJ_ID1, 
+	PAR_OBJ_ID2, 
+	PAR_OBJ_ID3, 
+	PAR_OBJ_ID4,
+	PAR_OBJ_NM1,
+	PAR_OBJ_NM2,
+	PAR_OBJ_NM3,
+	PAR_OBJ_NM4
+From  Tree_Org;
+
+---- drop table 
+--DROP table [dbo].[COMM_ORG];
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[COMM_ORG](
+	[OBJ_TYPE] [varchar](20) NOT NULL,
+	[OBJ_ID] [varchar](20) NOT NULL,
+	[OBJ_NM] [varchar](100) NOT NULL,
+	[SMR_OBJ_NM] [varchar](100) NULL,
+	[CHA_OBJ_NM] [varchar](100) NULL,
+	[ENG_OBJ_NM] [varchar](100) NULL,
+	[CHG_RSN_TXT] [varchar](100) NULL,
+	[PAR_OBJ_TYPE] [varchar](20) NULL,
+	[PAR_OBJ_ID] [varchar](20) NULL,
+	[STA_YMD] [date] NOT NULL,
+	[END_YMD] [date] NULL,
+	[SEQ_NO] [int] NULL,
+	[INS_USER_ID] [varchar](20) NULL,
+	[INS_YMDHMS] [datetime] NULL,
+	[MOD_USER_ID] [varchar](20) NULL,
+	[MOD_YMDHMS] [datetime] NULL,
+	[UPT_YMDHMS] [datetime] NULL,
+ CONSTRAINT [PK_COMM_ORG] PRIMARY KEY CLUSTERED 
+(
+	[OBJ_TYPE] ASC,
+	[OBJ_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  View [dbo].[COMM_ORG_VIEW]    Script Date: 2022-11-07 오후 5:49:57 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
 
 
