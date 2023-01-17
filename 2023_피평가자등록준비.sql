@@ -1,0 +1,56 @@
+ --- 엑셀에 없는 피평가자 등록 
+ INSERT INTO EVU_EMP (
+ 	EVU_STD_ID, 
+ 	EVU_EMP_ID, 
+ 	CUR_STEP_CD, 
+ 	EVU_STAT_CD, 
+ 	CHASU, 
+ 	EVU2_YN, 
+ 	CDP_CD, 
+ 	INS_USER_ID, 
+ 	INS_YMDHMS)
+VALUES ('202301', '00812', 'A0', 'EI', 0, 'N', NULL, '00812', GETDATE());
+
+----
+
+--- 등록된 피평가자 확인 
+select * 
+from [USER] u 
+inner join EVU_EMP ee on u.EMP_ID = ee.EVU_EMP_ID
+where ee.EVU_STD_ID ='202301'; 
+
+---
+
+--- 역량 매핑 삭제 
+DELETE FROM EVU_EMP_CDP WHERE EVU_STD_ID = '202301' AND EVU_EMP_NO = '피평가자 번호'
+
+--- 조직에 대한 정보 
+SELECT *
+FROM COMM_ORG_VIEW
+---
+
+--- 피평가자 평가자 등록
+MERGE EVU_MNG AS T
+		USING(SELECT ISNULL(COUNT(*),0) AS CNT FROM EVU_MNG WHERE EVU_MNG_SEQ= '') AS B
+		ON (B.CNT>0 AND T.EVU_MNG_SEQ = '' )
+		WHEN MATCHED THEN
+			UPDATE SET EVU_MNG_ID = '00982'
+					,MOD_USER_ID = 	'00812'
+					,MOD_YMDHMS = getdate()
+		WHEN NOT MATCHED THEN
+			INSERT (EVU_MNG_ID, EVU_EMP_NO,CHASU,INS_USER_ID,INS_YMDHMS,MNG_STAT_CD) 
+				VALUES( '00982', '3214' ,'1', '00812', getdate(),'MB')
+---
+
+--- 피평가자의 평가자 조회 
+SELECT 
+	EE.EVU_EMP_ID,
+	U.EMP_NM,
+	EM.EVU_MNG_ID,
+	U2.EMP_NM,
+	EM.CHASU 
+FROM EVU_EMP EE
+INNER JOIN [USER] U ON (EE.EVU_EMP_ID = U.EMP_ID AND EE.EVU_STD_ID ='202301')
+INNER JOIN EVU_MNG EM ON (EE.EVU_EMP_NO  = EM.EVU_EMP_NO)
+INNER JOIN [USER] U2 ON (U2.EMP_ID = EM.EVU_MNG_ID);
+---
